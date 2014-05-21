@@ -6,6 +6,7 @@ knitr is a tool which 'knits' together R and pdf, R and Markdown and more.  More
 I typically like to use knitr through [RStudio](https://www.rstudio.com/ "RStudio") where it is well integrated and has point and click buttons.  Sometimes it may make more sense to interact with knitr at the command line.  A few good commands to remember include:
 
 -knit() - knits input into an output document who's format depends on the input file's extension
+
 -purl() - extract the R code from an input file
 
 More on this can be found in the knitr documentation or the [knitr reference card](http://cran.r-project.org/web/packages/knitr/vignettes/knitr-refcard.pdf "knitr ref card").
