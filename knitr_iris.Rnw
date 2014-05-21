@@ -1,0 +1,108 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    urlcolor=blue           % color of external links
+}
+\usepackage{lineno}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{lipsum}
+
+% define the author
+\author{Brian J. Knaus}
+
+% define the title
+\title{A simple template for knitr}
+
+\begin{document}
+
+% generates the title
+\maketitle
+
+% insert the table of contents
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\linenumbers
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Introduction}
+We wanted to do some neat stuff.
+
+\lipsum[56-57]
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Methods}
+We used \cite{R}.  
+
+\subsection{The data}
+We got some data from \cite{fisher1936use}.
+
+<<load iris>>=
+data('iris')
+head(iris)
+library(xtable)
+iris.x <- xtable(iris[1:20,])
+caption(iris.x) <- "Edgar Anderson's Iris data"
+label(iris.x) <- "irisx"
+@
+
+
+
+<<iris xtable, results='asis', echo=FALSE>>=
+print(iris.x, include.rownames=FALSE, caption.placement='top')
+@
+
+And we can cite this in text as Table \ref{irisx}.
+
+\subsection{Analysis}
+
+We can analyze the data too.
+
+<<pca>>=
+i.pca <- princomp(iris[,1:4])
+@
+
+
+%\begin{figure}[h]
+
+<<plot1, fig.cap="Principal components analysis of iris data", results='asis', fig.align='default'>>=
+#plot(i.pca$scores[,1], i.pca$scores[,2], pch=21, bg=iris$Species)
+library(ggplot2)
+i.pca.df <- as.data.frame(i.pca$scores)
+ggplot(i.pca.df, aes(x=Comp.1, y=Comp.2, color=iris$Species)) +
+  geom_point(shape=1)
+@
+
+We can cite this in text as Figure \ref{fig:plot1}.
+
+%\end{figure}
+
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Discussion}
+We did neat stuff.
+
+\lipsum[3-4]
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+
+%\bibliographystyle{apalike}
+\bibliographystyle{plain}
+\bibliography{template1}
+
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\end{document}
