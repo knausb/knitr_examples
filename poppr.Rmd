@@ -1,0 +1,119 @@
+Using Poppr
+========================================================
+
+Here's an example of using Poppr.
+
+```{r poppr1}
+library(poppr)
+```
+
+Load an example dataset.
+
+```{r poppr2}
+data(Pinf)
+Pinf
+Pinf@pop.names
+Pinf@ind.names
+Pinf@other
+```
+
+
+The isolates from Mexico have been reported to be sexually recombining, while those from S. America are supposedly clonal.  Let's explore this.
+
+First, let's separate the data into populations.
+
+```{r poppr3}
+Pinf.l <- seppop(Pinf)
+```
+
+
+
+```{r poppr4}
+pop.l <- vector("list", length=4)
+pop.l[[1]] <- mlg.table(Pinf.l[[1]], bar=T)
+pop.l[[2]] <- mlg.table(Pinf.l[[2]], bar=T)
+```
+
+
+We can test for clonality using the index of association.
+
+```{r poppr5}
+pop.l[[3]] <- ia(Pinf.l[[1]], sample=999, quiet=T, valuereturn=T)
+pop.l[[4]] <- ia(Pinf.l[[2]], sample=999, quiet=T, valuereturn=T)
+```
+
+
+Now let's clone correct.
+
+
+```{r poppr6}
+Pinf.l[[3]] <- clonecorrect(Pinf.l[[1]])
+Pinf.l[[4]] <- clonecorrect(Pinf.l[[2]])
+```
+
+
+And see how this affects the number of MLGs in our dataset.
+
+```{r poppr7}
+pop.l[[5]] <- mlg.table(Pinf.l[[3]], bar=T)
+pop.l[[6]] <- mlg.table(Pinf.l[[4]], bar=T)
+```
+
+
+And test the clone corrected dataset using the index of association.
+
+
+```{r poppr8}
+pop.l[[7]] <- ia(Pinf.l[[3]], sample=999, quiet=T, valuereturn=T)
+pop.l[[8]] <- ia(Pinf.l[[4]], sample=999, quiet=T, valuereturn=T)
+```
+
+
+Now we can calculate a distance matrix for the data.
+
+
+```{r poppr9}
+Pinf.l[[5]] <- diss.dist(Pinf.l[[1]], frac=F)
+Pinf.l[[6]] <- diss.dist(Pinf.l[[2]], frac=F)
+Pinf.l[[7]] <- diss.dist(Pinf.l[[3]], frac=F)
+Pinf.l[[8]] <- diss.dist(Pinf.l[[4]], frac=F)
+```
+
+
+We can make a minimum spanning network.
+
+```{r poppr10}
+Pinf.l[[9]] <- poppr.msn(Pinf.l[[1]], Pinf.l[[5]])
+Pinf.l[[10]] <- poppr.msn(Pinf.l[[2]], Pinf.l[[6]])
+```
+
+
+Or neighbor-joining trees.
+
+```{r poppr11}
+library(ape)
+Pinf.l[[11]] <- nj(Pinf.l[[5]])
+Pinf.l[[12]] <- nj(Pinf.l[[6]])
+plot(Pinf.l[[11]])
+axis(side=1)
+plot(Pinf.l[[12]])
+axis(side=1)
+```
+
+
+And we can use k-means clustering to determine the number of groups.
+
+
+```{r poppr12}
+Pinf.l[[13]] <- find.clusters(Pinf.l[[1]], max.n = 20, n.pca = 10, scale = FALSE, choose.n.clust=F, quiet=T)
+Pinf.l[[14]] <- find.clusters(Pinf.l[[2]], max.n = 20, n.pca = 10, scale = FALSE, choose.n.clust=F)
+Pinf.l[[15]] <- find.clusters(Pinf.l[[3]], max.n = 20, n.pca = 10, scale = FALSE, choose.n.clust=F)
+Pinf.l[[16]] <- find.clusters(Pinf.l[[4]], max.n = 20, n.pca = 10, scale = FALSE, choose.n.clust=F)
+
+plot(1:20, Pinf.l[[13]]$Kstat, type='b', col=4, main="S. America")
+plot(1:20, Pinf.l[[15]]$Kstat, type='b', col=4, main="S. America - CC")
+
+plot(1:20, Pinf.l[[14]]$Kstat, type='b', col=4, main="N. America")
+plot(1:20, Pinf.l[[16]]$Kstat, type='b', col=4, main="N. America- CC")
+```
+
