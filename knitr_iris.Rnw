@@ -100,7 +100,7 @@ We did neat stuff.
 
 %\bibliographystyle{apalike}
 \bibliographystyle{plain}
-\bibliography{template1}
+\bibliography{knitr_iris}
 
 
 %% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
