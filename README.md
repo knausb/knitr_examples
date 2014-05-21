@@ -11,5 +11,6 @@ I typically like to use knitr through [RStudio](https://www.rstudio.com/ "RStudi
 
 More on this can be found in the knitr documentation or the [knitr reference card](http://cran.r-project.org/web/packages/knitr/vignettes/knitr-refcard.pdf "knitr ref card").
 
+The [knitr graphics manual](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=5&cad=rja&uact=8&sqi=2&ved=0CEMQFjAE&url=https%3A%2F%2Fbitbucket.org%2Fstat%2Fknitr%2Fdownloads%2Fknitr-graphics.pdf&ei=o9l8U7T0IMGBogTkk4HABA&usg=AFQjCNEghQYl4lljGRuRvRcgaQxG-CSozQ&bvm=bv.67229260,d.cUG "knitr graphics manual") has some good examples as well.
 
 Enjoy!
