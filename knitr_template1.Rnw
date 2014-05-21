@@ -1,0 +1,102 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,       % false: boxed links; true: colored links
+    urlcolor=blue           % color of external links
+}
+\usepackage{lineno}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{lipsum}
+
+% define the author
+\author{Brian J. Knaus}
+
+% define the title
+\title{A simple template for knitr}
+
+\begin{document}
+
+% generates the title
+\maketitle
+
+% insert the table of contents
+\tableofcontents
+\listoffigures
+\listoftables
+
+\newpage
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\linenumbers
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Introduction}
+We wanted to do some neat stuff.
+
+\lipsum[56-57]
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Methods}
+We used \cite{R}.  
+
+\subsection{The data}
+We generated random data.
+
+
+<<data>>=
+set.seed(1)
+x <- runif(n = 20, min = 2, max = 20)
+set.seed(10)
+y <- runif(n = 20, min = 2, max = 20)
+@
+
+
+\subsection{Analysis}
+
+We can analyze the data too.
+
+<<plo1>>=
+plot(x, y)
+@
+
+
+Or use ggplot2.
+
+
+<<plot2, fig.cap="Histogram and density plot of random data", results='asis', fig.align='default'>>=
+library(ggplot2)
+x.df <- as.data.frame(cbind(x, y))
+ggplot(x.df, aes(x=x)) + 
+  geom_histogram(aes(y=..density..), binwidth=1, colour="black", fill="white") +
+  geom_density(alpha=.2, fill="#FF6666", adjust=0.5)
+@
+
+
+We can cite this in text as Figure \ref{fig:plot2}.
+
+%\end{figure}
+
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\section{Discussion}
+We did neat stuff.
+
+\lipsum[3-4]
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+
+%\bibliographystyle{apalike}
+\bibliographystyle{plain}
+\bibliography{knitr_template1}
+
+
+%% ---------- ---------- ---------- Section ---------- ---------- ---------- %%
+
+\end{document}
