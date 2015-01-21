@@ -3,7 +3,8 @@
 \usepackage{hyperref}
 \hypersetup{
     colorlinks=true,       % false: boxed links; true: colored links
-    urlcolor=blue           % color of external links
+    urlcolor=blue,           % color of external links
+    citecolor=magenta,
 }
 \usepackage{lineno}
 \usepackage{todonotes}
