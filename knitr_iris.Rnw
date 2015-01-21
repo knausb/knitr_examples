@@ -6,6 +6,9 @@
     urlcolor=blue,           % color of external links
     citecolor=magenta,
 }
+
+\usepackage[T1]{fontenc}
+
 \usepackage{lineno}
 \usepackage{todonotes}
 \usepackage{float}
